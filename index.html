@@ -9,7 +9,7 @@
     :root{--bg:#0f172a;--card:#0b1220;--accent:#7c3aed;--muted:#9aa4b2}
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{display:grid;place-items:center;padding:24px;background:linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);color:#e6eef8}
+    body{display:grid;place-items:center;padding:24px;background:linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);color:#0a1a3a}
     .card{width:100%;max-width:880px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));border-radius:16px;padding:32px;box-shadow:0 8px 30px rgba(2,6,23,0.6);position:relative;overflow:hidden}
     h1{font-size:clamp(22px,3.4vw,42px);margin:0 0 8px}
     p.lead{margin:0 0 18px;color:var(--muted);font-weight:500}
@@ -26,19 +26,34 @@
   <div class="card" role="main" aria-labelledby="title">
     <canvas id="confettiCanvas"></canvas>
     <h1 id="title">Good luck on your board exams, Love! ❤️</h1>
-    <p class="lead">You worked hard (and crammed) for this moment. Now it's time for your fruits of your labor bloom into bountiful harvest.</p>
+    <p class="lead">You studied hard (and crammed) for this moment. Now it's time for your fruits of your labor bloom into bountiful harvest.</p>
 
     <div class="message" id="message">
       <strong>Motivation:</strong>
-      <p style="margin:8px 0 0">Face the test like it's a boss battle: focus, strategic, and believe in your friends along the way. One step at a time — you've got this.</p>
+      <p style="margin:8px 0 0">Face the test like it's a boss battle: focus, strategic, and believe in your friends along the way. One step at a time — you've got this!</p>
     </div>
 
     <div class="btns">
-      <button id="cheer">Show me a cheer</button>
+      <button id=\"cheer\">Show me a cheer<\/button>
+      <button id=\"reveal\">Reveal surprise</button>
       <button class="alt" id="copy">Copy short note</button>
     </div>
 
-    <footer>Made with ❤️ (I really tried 😅).</footer>
+    <div id="surprise" style="display:none; margin-top:20px;">
+      <h2 style="margin:0 0 10px; font-size:20px;">A Song for You 🎶</h2>
+      <p><a href="https://www.youtube.com/watch?v=VcjzHMhBtf0" target="_blank">Click here to open the song</a></p>
+      <h2 style="margin:20px 0 10px; font-size:20px;">Photo Gallery 📸</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <img src="https://github.com/kani-salad/board-exam/blob/d898128f8e3046d72055b54bc2ccac750fc0e53b/10b97e7e-786a-40da-b54c-e33a36be56de.jpg?raw=1" style="width:150px;height:150px;border-radius:10px;object-fit:cover;" />
+        <img src="https://github.com/kani-salad/board-exam/blob/d898128f8e3046d72055b54bc2ccac750fc0e53b/53d97ddf-f078-49df-8ff3-ac4e6e81f962.jpg?raw=1" style="width:150px;height:150px;border-radius:10px;object-fit:cover;" />
+        <img src="https://github.com/kani-salad/board-exam/blob/d898128f8e3046d72055b54bc2ccac750fc0e53b/5a8e660c-8e8a-4a16-a54b-886849450f99.jpg?raw=1" style="width:150px;height:150px;border-radius:10px;object-fit:cover;" />
+        <img src="https://github.com/kani-salad/board-exam/blob/d898128f8e3046d72055b54bc2ccac750fc0e53b/af6c5dee-dfbf-4065-a363-f6cd16211b7c.jpg?raw=1" style="width:150px;height:150px;border-radius:10px;object-fit:cover;" />
+        <img src="https://github.com/kani-salad/board-exam/blob/d898128f8e3046d72055b54bc2ccac750fc0e53b/b03b7d66-5108-4696-88f5-64c0c8d36edf.jpg?raw=1" style="width:150px;height:150px;border-radius:10px;object-fit:cover;" />
+        <img src="https://github.com/kani-salad/board-exam/blob/d898128f8e3046d72055b54bc2ccac750fc0e53b/fcde7cdc-26ed-45e0-bb0d-9f79c2f1b33c.jpg?raw=1" style="width:150px;height:150px;border-radius:10px;object-fit:cover;" />
+      </div>
+    </div>
+
+    <footer>Made with ❤️ (I really tried 😅)</footer>
   </div>
 
   <script>
@@ -53,12 +68,27 @@
       }catch(e){ alert('Copy not supported — highlight and copy manually:\n\n'+copyText) }
     });
 
-    // Cheer messages and simple confetti trigger
+    // Cheer messages
+
+    // Reveal surprise
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const btn = document.getElementById('reveal');
+      const surprise = document.getElementById('surprise');
+      btn.addEventListener('click', ()=>{
+        surprise.style.display = surprise.style.display === 'none' ? 'block' : 'none';
+      });
+    }); and simple confetti trigger
     const cheers = [
       "You worked hard in this training arc — now it's your time to shine!",
       "Remember: breathe, read carefully, take your time, and answer with confidence.",
       "I already know how amazing you are — go prove it to them!",
       "Channel your protagonist and finish strong!"
+      "You got this! Remember, even Naruto had to train 1000 times to master his jutsu. Your exam is just your next training arc!"
+      "This is your shonen moment—tough, intense, but totally worth it. Kamehameha through that exam like Goku!"
+      "Finally! A board exam! OUR BATTLE WILL BE LEGENDARY!"
+      "You can do this! Remember, ‘This is fine’ but you’re gonna pass anyway 🔥🐶"
+      "Don’t worry, you’re basically ‘Doge-level smart’—much brain, very wow."
+      "Keep going! Just like ‘Hide the Pain Harold,’ fake confidence until it becomes real."
     ];
     document.getElementById('cheer').addEventListener('click', ()=>{
       const m = cheers[Math.floor(Math.random()*cheers.length)];
