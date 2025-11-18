@@ -26,7 +26,7 @@
   <div class="card" role="main" aria-labelledby="title">
     <canvas id="confettiCanvas"></canvas>
     <h1 id="title">Good luck on your board exams, Love! ❤️</h1>
-    <p class="lead">You studied hard (and crammed) for this moment. Now it's time for your fruits of your labor bloom into bountiful harvest.</p>
+    <p class="lead">You studied hard (and crammed) for this moment. Now it's time for your fruits of your labor to bloom into a bountiful harvest.</p>
 
     <div class="message" id="message">
       <strong>Motivation:</strong>
@@ -34,8 +34,8 @@
     </div>
 
     <div class="btns">
-      <button id=\"cheer\">Show me a cheer<\/button>
-      <button id=\"reveal\">Reveal surprise</button>
+      <button id="cheer">Show me a cheer</button>
+      <button id="reveal">Reveal surprise</button>
       <button class="alt" id="copy">Copy short note</button>
     </div>
 
@@ -58,38 +58,32 @@
 
   <script>
     // Short copy text
-    const copyText = `Good luck on your board exams — I believe in you! One question at a time, you got this and, believe in the heart of the cards! Love you ❤️`;
+    const copyText = `Good luck on your board exams — I believe in you! One question at a time, you got this and believe in the heart of the cards! Love you ❤️`;
     document.getElementById('copy').addEventListener('click', async ()=>{
       try{
         await navigator.clipboard.writeText(copyText);
         const old = document.getElementById('copy').textContent;
         document.getElementById('copy').textContent = 'Copied!';
         setTimeout(()=> document.getElementById('copy').textContent = old,1500);
-      }catch(e){ alert('Copy not supported — highlight and copy manually:\n\n'+copyText) }
+      }catch(e){ 
+        alert('Copy not supported — highlight and copy manually:\n\n'+copyText);
+      }
     });
 
     // Cheer messages
-
-    // Reveal surprise
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const btn = document.getElementById('reveal');
-      const surprise = document.getElementById('surprise');
-      btn.addEventListener('click', ()=>{
-        surprise.style.display = surprise.style.display === 'none' ? 'block' : 'none';
-      });
-    }); and simple confetti trigger
     const cheers = [
       "You worked hard in this training arc — now it's your time to shine!",
       "Remember: breathe, read carefully, take your time, and answer with confidence.",
       "I already know how amazing you are — go prove it to them!",
-      "Channel your protagonist and finish strong!"
-      "You got this! Remember, even Naruto had to train 1000 times to master his jutsu. Your exam is just your next training arc!"
-      "This is your shonen moment—tough, intense, but totally worth it. Kamehameha through that exam like Goku!"
-      "Finally! A board exam! OUR BATTLE WILL BE LEGENDARY!"
-      "You can do this! Remember, ‘This is fine’ but you’re gonna pass anyway 🔥🐶"
-      "Don’t worry, you’re basically ‘Doge-level smart’—much brain, very wow."
+      "Channel your protagonist and finish strong!",
+      "You got this! Remember, even Naruto had to train 1000 times to master his jutsu. Your exam is just your next training arc!",
+      "This is your shonen moment—tough, intense, but totally worth it. Kamehameha through that exam like Goku!",
+      "Finally! A board exam! OUR BATTLE WILL BE LEGENDARY!",
+      "You can do this! Remember, ‘This is fine’ but you’re gonna pass anyway 🔥🐶",
+      "Don’t worry, you’re basically ‘Doge-level smart’—much brain, very wow.",
       "Keep going! Just like ‘Hide the Pain Harold,’ fake confidence until it becomes real."
     ];
+
     document.getElementById('cheer').addEventListener('click', ()=>{
       const m = cheers[Math.floor(Math.random()*cheers.length)];
       const msgEl = document.createElement('p');
@@ -101,36 +95,64 @@
       launchConfetti();
     });
 
-    // Minimal confetti (no external libs)
+    // Reveal surprise
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const btn = document.getElementById('reveal');
+      const surprise = document.getElementById('surprise');
+      btn.addEventListener('click', ()=>{
+        surprise.style.display = surprise.style.display === 'none' ? 'block' : 'none';
+      });
+    });
+
+    // Upgraded confetti
     function launchConfetti(){
       const canvas = document.getElementById('confettiCanvas');
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
       const ctx = canvas.getContext('2d');
       const pieces = [];
-      const colors = ['#FF6B6B','#FFD166','#6BCB77','#4D96FF','#B197FC'];
-      for(let i=0;i<80;i++){
-        pieces.push({x:Math.random()*canvas.width,y:Math.random()*-canvas.height*0.5,vy:2+Math.random()*4,angle:Math.random()*360,spin:Math.random()*0.2+0.02,color:colors[i%colors.length],size:6+Math.random()*6})
+      const colors = ['#FF6B6B','#FFD166','#6BCB77','#4D96FF','#B197FC','#FF8C42','#D81159'];
+
+      for(let i=0;i<150;i++){
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * -canvas.height,
+          vy: 2 + Math.random() * 5,
+          vx: (Math.random() - 0.5) * 2,
+          size: 5 + Math.random() * 8,
+          angle: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 0.2,
+          color: colors[Math.floor(Math.random()*colors.length)],
+          alpha: 1
+        });
       }
-      let t=0;
+
+      let t = 0;
       function draw(){
-        t+=1;
+        t += 1;
         ctx.clearRect(0,0,canvas.width,canvas.height);
+
         for(const p of pieces){
           p.y += p.vy;
-          p.x += Math.sin(t*0.02 + p.angle) * 0.6;
+          p.x += p.vx + Math.sin(t * 0.02 + p.angle) * 0.5;
           p.angle += p.spin;
+          p.alpha -= 0.0015;
+
+          if(p.alpha <= 0) continue;
+
           ctx.save();
-          ctx.translate(p.x,p.y);
+          ctx.translate(p.x, p.y);
           ctx.rotate(p.angle);
+          ctx.globalAlpha = Math.max(p.alpha, 0);
           ctx.fillStyle = p.color;
           ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.6);
           ctx.restore();
         }
-        // stop when most pieces are out
-        if(pieces.every(p=>p.y>canvas.height+50)) return;
+
+        if(pieces.every(p => p.alpha <= 0 || p.y > canvas.height + 20)) return;
         requestAnimationFrame(draw);
       }
+
       draw();
     }
 
