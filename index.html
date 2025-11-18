@@ -25,12 +25,12 @@
 <body>
   <div class="card" role="main" aria-labelledby="title">
     <canvas id="confettiCanvas"></canvas>
-    <h1 id="title">Good luck on your board exams, my love! ❤️</h1>
-    <p class="lead">You've studied hard — now go show them what you're made of. Believe in yourself like the main character you are.</p>
+    <h1 id="title">Good luck on your board exams, Love! ❤️</h1>
+    <p class="lead">You worked hard (and crammed) for this moment. Now it's time for your fruits of your labor bloom into bountiful harvest.</p>
 
     <div class="message" id="message">
       <strong>Motivation:</strong>
-      <p style="margin:8px 0 0">Face the test like a shonen protagonist: brave, focused, and surrounded by friends who've got your back. One step at a time — you've got this.</p>
+      <p style="margin:8px 0 0">Face the test like it's a boss battle: focus, strategic, and believe in your friends along the way. One step at a time — you've got this.</p>
     </div>
 
     <div class="btns">
@@ -43,7 +43,7 @@
 
   <script>
     // Short copy text
-    const copyText = `Good luck on your board exams — I believe in you! Face it with confidence, one question at a time. Love you ❤️`;
+    const copyText = `Good luck on your board exams — I believe in you! One question at a time, you got this and believe in the heart of the cards! Love you ❤️`;
     document.getElementById('copy').addEventListener('click', async ()=>{
       try{
         await navigator.clipboard.writeText(copyText);
@@ -55,10 +55,10 @@
 
     // Cheer messages and simple confetti trigger
     const cheers = [
-      "You trained hard — now it's your time to shine!",
-      "Remember: breathe, read carefully, and answer with confidence.",
-      "We already know how amazing you are — go prove it to them!",
-      "Channel your inner hero and finish strong!"
+      "You worked hard in this training arc — now it's your time to shine!",
+      "Remember: breathe, read carefully, take your time, and answer with confidence.",
+      "I already know how amazing you are — go prove it to them!",
+      "Channel your protagonist and finish strong!"
     ];
     document.getElementById('cheer').addEventListener('click', ()=>{
       const m = cheers[Math.floor(Math.random()*cheers.length)];
