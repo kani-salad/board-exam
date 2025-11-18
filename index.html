@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Good Luck, My Love!</title>
+  <title>For you, Brin Ivan</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#0f172a;--card:#0b1220;--accent:#7c3aed;--muted:#9aa4b2}
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
-    body{display:grid;place-items:center;padding:24px;background:linear-gradient(180deg,#071133 0%, #0b1220 60%);color:#e6eef8}
+    body{display:grid;place-items:center;padding:24px;background:linear-gradient(180deg, #87CEEB 0%, #B0E0E6 100%);color:#e6eef8}
     .card{width:100%;max-width:880px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));border-radius:16px;padding:32px;box-shadow:0 8px 30px rgba(2,6,23,0.6);position:relative;overflow:hidden}
     h1{font-size:clamp(22px,3.4vw,42px);margin:0 0 8px}
     p.lead{margin:0 0 18px;color:var(--muted);font-weight:500}
@@ -38,12 +38,12 @@
       <button class="alt" id="copy">Copy short note</button>
     </div>
 
-    <footer>Made with ❤️ — paste this file in a GitHub repo (named <code>good-luck</code>) or open it locally to share.</footer>
+    <footer>Made with ❤️ (I really tried 😅).</footer>
   </div>
 
   <script>
     // Short copy text
-    const copyText = `Good luck on your board exams — I believe in you! One question at a time, you got this and believe in the heart of the cards! Love you ❤️`;
+    const copyText = `Good luck on your board exams — I believe in you! One question at a time, you got this and, believe in the heart of the cards! Love you ❤️`;
     document.getElementById('copy').addEventListener('click', async ()=>{
       try{
         await navigator.clipboard.writeText(copyText);
